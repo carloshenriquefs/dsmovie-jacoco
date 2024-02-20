@@ -47,7 +47,7 @@ public class MovieService {
     @Transactional
     public MovieDTO update(Long id, MovieDTO dto) {
         try {
-            MovieEntity entity = new MovieEntity();
+            MovieEntity entity = movieRepository.getReferenceById(id);
             copyDtoToEntity(dto, entity);
             entity = movieRepository.save(entity);
             return new MovieDTO(entity);
