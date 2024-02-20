@@ -13,6 +13,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+import static com.dsmovie.jacoco.constants.Constants.EMAIL_NAO_ENCONTRADO;
+import static com.dsmovie.jacoco.constants.Constants.USUARIO_INVALIDO;
+
 @Service
 public class UserService implements UserDetailsService {
 
@@ -28,7 +31,7 @@ public class UserService implements UserDetailsService {
 			return repository.findByUsername(username).get();
 		}
 		catch (Exception e) {
-			throw new UsernameNotFoundException("Invalid user");
+			throw new UsernameNotFoundException(USUARIO_INVALIDO);
 		}
 	}
 	
@@ -37,7 +40,7 @@ public class UserService implements UserDetailsService {
 		
 		List<UserDetailsProjection> result = repository.searchUserAndRolesByUsername(username);
 		if (result.size() == 0) {
-			throw new UsernameNotFoundException("Email not found");
+			throw new UsernameNotFoundException(EMAIL_NAO_ENCONTRADO);
 		}
 		
 		UserEntity user = new UserEntity();
